@@ -16,10 +16,12 @@ import java.util.ArrayList;
 
 
 public class FirstPage {
+    private TextArea resultArea;
     private Image miniLogo;
     private TextArea codeArea;
 
     LexicalAnalysis lexicalAnalysis= new LexicalAnalysis();
+    SyntaxeAnalysis syntaxeAnalysis = new SyntaxeAnalysis();
 
     private FirstPage() {
         try {
@@ -68,9 +70,16 @@ public class FirstPage {
 
         codeArea = new TextArea(680, 680, Color.white, Color.black);
         codeArea.setBorder(new LineBorder(Color.BLACK, 1));
+
+        resultArea = new TextArea(680, 680, Color.white, Color.black);
+        resultArea.setBorder(new LineBorder(Color.BLACK, 1));
+        resultArea.setEditable(false);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, codeArea, resultArea);
+
         //panel For text +label
         MyPanel textPanel = new MyPanel(700, 700, yellow);
-        textPanel.add(codeArea);
+        // textPanel.add(codeArea);
+        textPanel.add(splitPane);
         //bigPane config
         MyPanel bigPanel = new MyPanel(1000, 1000, yellow);
         bigPanel.setLayout(new GridLayout(1, 2));
@@ -108,7 +117,7 @@ public class FirstPage {
 
 
     public static String chargerFichier() throws IOException {
-        JFileChooser file_chooser = new JFileChooser("C:\\Users");
+        JFileChooser file_chooser = new JFileChooser(".");
         if (file_chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File file = file_chooser.getSelectedFile();
             return readFileAsString(file);
@@ -120,12 +129,43 @@ public class FirstPage {
         lexicalAnalysis.setTextCode(codeArea.getText());
         ArrayList<Token> tokens= lexicalAnalysis.getTokens();
 
-        codeArea.setText("");
-        codeArea.append("detect "+tokens.size()+ " words : \n ");
+        resultArea.setText("");
+        printLexResult(tokens);
 
 
     }
+
+    private void printLexResult(ArrayList<Token> tokens)
+    {
+        resultArea.setVisible(true);
+        resultArea.setText("");
+        for (Token t : tokens)
+        {
+            resultArea.append(t.getText() + " -> ");
+            switch (t.getType())
+            {
+                case DATA:
+                    resultArea.append("Donnée\n");
+                    break;
+                case IDENT:
+                    resultArea.append("Identificateur\n");
+                    break;
+
+                case SYMBOL:
+                    resultArea.append("Symbol clé\n");
+                    break;
+                case MOTCLE:
+                    resultArea.append("Mot clé\n");
+                    break;
+                default:
+                    resultArea.append("???\n");
+            }
+        }
+    }
+
     public  void doSyntaxique(){
+        syntaxeAnalysis.setTokens(lexicalAnalysis.getTokens());
+        syntaxeAnalysis.performSyntaxAnalysis();
 
     }
     public  void doSemantique(){
