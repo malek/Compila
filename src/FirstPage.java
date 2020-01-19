@@ -74,7 +74,7 @@ public class FirstPage {
         resultArea = new TextArea(680, 680, Color.white, Color.black);
         resultArea.setBorder(new LineBorder(Color.BLACK, 1));
         resultArea.setEditable(false);
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, codeArea, resultArea);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(codeArea),new JScrollPane(resultArea));
 
         //panel For text +label
         MyPanel textPanel = new MyPanel(700, 700, yellow);
@@ -86,6 +86,7 @@ public class FirstPage {
 
         window.getContentPane().add(buttonPanel, BorderLayout.WEST);
         window.getContentPane().add(textPanel /*codeArea*/);
+        window.setResizable(false);
         window.setVisible(true);
     }
 

@@ -12,6 +12,8 @@ public class KeywordToken extends Token
     public static final KeywordToken SHOW_VAL = new KeywordToken("ShowVal", 0);
     public static final KeywordToken GIVE = new KeywordToken("Give", 0);
     public static final KeywordToken AFFECT = new KeywordToken("Affect", 0);
+    public static final KeywordToken INT_NUMBER = new KeywordToken("Int_Number", 0);
+    public static final KeywordToken REAL_NUMBER = new KeywordToken("Real_Number", 0);
     public static final KeywordToken TO = new KeywordToken("to", 0);
 
     public KeywordToken(String text, int line)

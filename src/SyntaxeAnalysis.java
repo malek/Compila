@@ -46,12 +46,39 @@ public class SyntaxeAnalysis {
     }
 
     private void showMessage() {
-
+        if (currentTc().equals(KeywordToken.SHOW_MSG)) {
+            nextTc();
+            if (currentTc().equals(SymbolToken.COLUMN)){
+                nextTc();
+                if (currentTc() instanceof DataToken){
+                    nextTc();
+                    if (currentTc().equals(KeywordToken.POINT_VIRGULE)){
+                        System.out.println("Affichage d un message");
+                        return;
+                    }
+                }
+            }
+        }
+        System.err.println("error in Show mess instruction");
     }
 
+    ////shwo val a revoire
     private void showValeur() {
-
-    }
+        if (currentTc().equals(KeywordToken.SHOW_VAL)) {
+            nextTc();
+            if (currentTc().equals(SymbolToken.COLUMN)){
+                nextTc();
+                if (currentTc() instanceof IdToken) {
+                    nextTc();
+                    if (currentTc().equals(KeywordToken.POINT_VIRGULE)){
+                        System.out.println("Affichage d une variabel");
+                        return;
+                    }
+                }
+            }
+        }
+        System.err.println("error in Show val instruction");
+        }
 
     private void give() {
         //System.out.println("goood cooode cooongraraaaaaaaaaaa\n");
