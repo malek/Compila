@@ -19,15 +19,17 @@ public class SyntaxeAnalysis {
         this.tokens = tokens;
         this.indice = 0;
     }
-
-    public void performSyntaxAnalysis() {
+private String outPutResult = "";
+    public String performSyntaxAnalysis() {
         if (currentTc().equals(KeywordToken.START_PROGRAM)) {
             nextTc();
             instruction();
             if (currentTc().equals(KeywordToken.END_PROGRAM))
-                System.out.println("goood cooode cooongraraaaaaaaaaaa\n");
-            else System.err.println("bad ending terararara !!!");
-        } else System.err.println("bad starting :D ");
+                outPutResult=outPutResult+"goood cooode cooongraraaaaaaaaaaa\n";
+            else outPutResult=outPutResult+"bad ending terararara !!!";
+        } else outPutResult=outPutResult+ "bad starting :D ";
+        instruction();
+        return outPutResult;
     }
 
     private void instruction() {
@@ -41,7 +43,7 @@ public class SyntaxeAnalysis {
             nextTc();
             showMessage();
         } else {
-            // mot vde
+            // mot vide
         }
     }
 
@@ -62,7 +64,7 @@ public class SyntaxeAnalysis {
         System.err.println("error in Show mess instruction");
     }
 
-    ////shwo val a revoire
+    ////shwo val
     private void showValeur() {
         if (currentTc().equals(KeywordToken.SHOW_VAL)) {
             nextTc();

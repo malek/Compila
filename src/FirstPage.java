@@ -166,7 +166,8 @@ public class FirstPage {
 
     public  void doSyntaxique(){
         syntaxeAnalysis.setTokens(lexicalAnalysis.getTokens());
-        syntaxeAnalysis.performSyntaxAnalysis();
+
+        resultArea.setText(syntaxeAnalysis.performSyntaxAnalysis());
 
     }
     public  void doSemantique(){
